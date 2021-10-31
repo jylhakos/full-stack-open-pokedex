@@ -11,6 +11,6 @@ describe('Pokemon', function() {
   it('pokemon page can be opened', function() {
     cy.visit('http://localhost:5000', { timeout: 45000 })
     cy.get('a[href*="/pokemon/ivysaur"]').click()
-    cy.contains('ivysaur')
+    cy.contains('chlorophyll')
   })
 })
