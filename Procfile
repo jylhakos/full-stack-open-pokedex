@@ -1,1 +1,1 @@
-web: npm start-prod process.env.PASSWORD
+web: npm start-prod
