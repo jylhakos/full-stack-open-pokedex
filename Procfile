@@ -1,1 +1,1 @@
-web: npm start-prod app-part-11
+web: npm start app-part-11
