@@ -35,4 +35,6 @@ jobs:
             heroku_email: "juha.jylhaekoski@gmail.com"
             healthcheck:  https://app-part-11.herokuapp.com/health
             checkstring: "ok"
+            rollbackonhealthcheckfailed: true
+            
             
