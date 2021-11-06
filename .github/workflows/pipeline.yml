@@ -27,7 +27,7 @@ jobs:
         run: |
            echo "COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.event.after }})" >> $GITHUB_ENV
       - name: Show Commit Message
-        run : echo ${{ COMMIT_MSG }}
+        run : echo "$COMMIT_MSG"
       - name: Skipping commit for tagging and deployment
         if: contains(env.COMMIT_MSG, 'skip')
         run: echo "NOT_SKIP=${{ false }}" >> $GITHUB_ENV
