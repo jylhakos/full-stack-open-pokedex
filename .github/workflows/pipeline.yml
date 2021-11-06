@@ -26,7 +26,7 @@ jobs:
            echo "SKIP=false" >> $GITHUB_ENV
       - name: Show Commit Message
         run : echo $COMMIT_MSG
-      - name: Skip True
+      - name: Skipping commit for tagging and deployment
         if: contains(${{env.COMMIT_MSG}}, 'skip')
         run: |
           echo "SKIP=true" >> $GITHUB_ENV
@@ -35,9 +35,9 @@ jobs:
         run: npm install
       - name: lint
         run: npm run eslint
-      - name: build
+      - name: Build
         run: npm run build
-      - name: test
+      - name: Test
         run: npm run test
       - name: e2e tests
         uses: cypress-io/github-action@v2
@@ -52,7 +52,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           DRY_RUN: false
-      - name: deploy
+      - name: Deployment
         if: ${{ github.event_name == 'push' && env.SKIP == false }}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
