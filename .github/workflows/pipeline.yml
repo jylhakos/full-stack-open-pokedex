@@ -27,10 +27,10 @@ jobs:
       - name: Show Commit Message
         run : echo $COMMIT_MSG
       - name: Skip True
-        if: contains($COMMIT_MSG, 'skip')
+        if: contains(${{env.COMMIT_MSG}}, 'skip')
         run: |
           echo "SKIP=true" >> $GITHUB_ENV
-          echo SKIP
+          echo ${{env.SKIP}}
       - name: npm install
         run: npm install
       - name: lint
