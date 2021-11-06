@@ -27,7 +27,7 @@ jobs:
         run: |
            echo "COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.event.after }})" >> $GITHUB_ENV
       - name: Show Commit Message
-        run : echo env.COMMIT_MSG
+        run : echo $COMMIT_MSG
       - name: Skipping commit for tagging and deployment
         if: contains(env.COMMIT_MSG, 'skip')
         run: echo "NOT_SKIP=${{ false }}" >> $GITHUB_ENV
@@ -46,7 +46,7 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: Bump version and push tag
-        if: ${{ github.event_name == 'push' && env.NOT_SKIP }}
+        if: ${{ github.event_name == 'push' && $NOT_SKIP == true }}
         uses: anothrNick/github-tag-action@1.33.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -54,7 +54,7 @@ jobs:
           DRY_RUN: false
       - name: Deployment
         #if: ${{ github.event_name == 'push' }} && ${{ env.COMMIT_MSG != 'skip' }}
-        if: ${{ github.event_name == 'push' && env.NOT_SKIP }}
+        if: ${{ github.event_name == 'push' && $NOT_SKIP == true }}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
