@@ -45,6 +45,12 @@ jobs:
           command: npm run test:e2e --spec 'cypress/integration/11.9.js'
           start: npm run start-prod
           wait-on: http://localhost:5000
+      - name: Contains skip true
+        if: contains(env.NOT_SKIP, 'true')
+        run : echo "$NOT_SKIP"
+      - name: Contains skip false
+        if: contains(env.NOT_SKIP, 'false')
+        run : echo "$NOT_SKIP"
       - name: Bump version and push tag
         if: ${{ github.event_name == 'push' }} && contains(env.NOT_SKIP, 'true')
         uses: anothrNick/github-tag-action@1.33.0
