@@ -52,16 +52,17 @@ jobs:
         run : echo "$NOT_SKIP"
       - name: Bump version and push tag
         if: | 
-          (${{ github.event_name == 'push' }} && contains(env.NOT_SKIP, 'true'))
+          ( github.event_name == 'push' && contains(env.NOT_SKIP, 'true') )
         uses: anothrNick/github-tag-action@1.33.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           DRY_RUN: false
       - name: Deployment
-        #if: ${{ github.event_name == 'push' }} && ${{ env.COMMIT_MSG != 'skip' }}
+        #if: |
+        #  (github.event_name == 'push'  &&  env.COMMIT_MSG != 'skip')
         if: | 
-          (${{ github.event_name == 'push' }} && contains(env.NOT_SKIP, 'true'))
+          ( github.event_name == 'push' && contains(env.NOT_SKIP, 'true') )
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
