@@ -2,7 +2,7 @@ name: Periodic Health Check
 
 on:
   schedule:
-    - cron:  '0 11 * * *'
+    - cron:  '0 12 * * *'
 jobs:
   daily_ping:
     runs-on: ubuntu-latest
