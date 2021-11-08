@@ -72,6 +72,7 @@ jobs:
         if: contains(env.NOT_SKIP, 'false')
         run : echo "$NOT_SKIP"
       - name: Bump version and push tag
+        # if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), 'skip') }}
         if: | 
           ( github.event_name == 'push' && contains(env.NOT_SKIP, 'true') )
         uses: anothrNick/github-tag-action@1.33.0
@@ -80,6 +81,7 @@ jobs:
           DEFAULT_BUMP: patch
           DRY_RUN: false
       - name: Deployment
+        # if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), 'skip') }}
         #if: |
         #  (github.event_name == 'push'  &&  env.COMMIT_MSG != 'skip')
         if: | 
